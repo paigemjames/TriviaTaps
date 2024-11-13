@@ -1,20 +1,25 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./index.css"; 
 import 'bootstrap/dist/css/bootstrap.min.css'; 
+import Taps from './assets/taps.png'; 
 
 const App = () => {
-
   useEffect(() => {
     document.title = "Trivia Taps - Home";
   }, []);
 
   return (
     <div className="body">
-      <h1>Trivia Taps</h1>
-      <div className="rounded-container">
-        {/* Add everything else here */}
-        <p>Welcome to Trivia Taps! Select a category to start playing.</p>
+      <h1 style={{ color: '#ffffff' }}>Trivia Taps</h1>
+      
+      {/* Image wrapped in a React Router Link */}
+      <div className="image-container">
+        <Link to="/record">
+          <img src={Taps} alt="Trivia" className="center-image" />
+        </Link>
       </div>
+      <p>Clink the drinks together to get started!</p>
     </div>
   );
 };

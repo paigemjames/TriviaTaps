@@ -35,18 +35,48 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--white);
-}
+
 h1 {
   text-align: center;           
   letter-spacing: 2px;          
-  color: #ffffff;          
-  font-size: 20px;            
-  margin-top: 20px;       
+  color: #fff !important;          
+  font-size: 50px !important;            
+  margin-top: 20px !important;       
 }
 
 p {
-  color: var(--light-blue);
+  color: var(--white);
 }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.image-container {
+  margin-top: 20px;
+}
+
+.center-image {
+  max-width: 50%; /* Adjust the size as needed */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.center-image {
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transition: filter 0.2s ease-in-out;
+}
+
+.center-image:hover {
+  filter: brightness(80%); /* Darkens the image on hover */
+}
+
 

@@ -1,17 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App"; // Import your updated App component
-import "./index.css"; // Import global styles
-
+import App from "./App";
+import Record from "./components/Record";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />, // Use App directly as the home page
+    element: <App />
   },
+  {
+    path: "/record",
+    element: <Record />
+  }
 ]);
-
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
