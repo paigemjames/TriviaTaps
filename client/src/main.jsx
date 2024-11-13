@@ -39,72 +39,52 @@ const router = createBrowserRouter([
     path: "/HostLogOut", element: <H_LogOut/>
   },
   {
-    path: "/HostQuestionRelease",
-    element: <H_QuestionRelease/>
+    path: "/HostQuestionRelease", element: <H_QuestionRelease/>
   },
   {
-    path: "/HostQuizCatagories",
-    element: <H_QuizCatagories/>
+    path: "/HostQuizCatagories", element: <H_QuizCatagories/>
   },
   {
-    path: "/HostQuizEnd",
-    element: <H_QuizEnd/>
+    path: "/HostQuizEnd", element: <H_QuizEnd/>
   },
   {
-    path: "/HostQuizSelection",
-    element: <H_QuizSelection/>
+    path: "/HostQuizSelection", element: <H_QuizSelection/>
   },
   {
-    path: "/HostQuizStart",
-    element: <H_QuizStart/>
+    path: "/HostQuizStart", element: <H_QuizStart/>
   },
   {
-    path: "/HostSignUp",
-    element: <H_SignUp/>
+    path: "/HostSignUp", element: <H_SignUp/>
   },
   {
-    path: "/Winners",
-    element: <H_Winners/>
+    path: "/Winners", element: <H_Winners/>
   },
   {
-    path: "/ParticipantLeaderboard",
-    element: <P_Leaderboard/>
+    path: "/ParticipantLeaderboard", element: <P_Leaderboard/>
   },
   {
-    path: "/ParticipantLogOut",
-    element: <P_LogOut/>
+    path: "/ParticipantLogOut", element: <P_LogOut/>
   },
   {
-    path: "/ParticipantQuizCatagories",
-    element: <P_QuizCatagories/>
+    path: "/ParticipantQuizCatagories", element: <P_QuizCatagories/>
   },
   {
-    path: "/ParticipantQuizQuestions",
-    element: <P_QuizQuestions/>
+    path: "/ParticipantQuizQuestions", element: <P_QuizQuestions/>
   },
   {
-    path: "/ParticipantQuizQuestions",
-    element: <P_QuizQuestions/>
+    path: "/ParticipantQuizSelection", element: <P_QuizSelection/>
   },
   {
-    path: "/ParticipantQuizSelection",
-    element: <P_QuizSelection/>
+    path: "/ParticipantQuizStart", element: <P_QuizStart/>
   },
   {
-    path: "/ParticipantQuizStart",
-    element: <P_QuizStart/>
+    path: "/ParticipantQuizSubmit", element: <P_QuizSubmit/>
   },
   {
-    path: "/ParticipantQuizSubmit",
-    element: <P_QuizSubmit/>
+    path: "/ParticipantSignUp", element: <P_SignUp/>
   },
   {
-    path: "/ParticipantSignUp",
-    element: <P_SignUp/>
-  },
-  {
-    path: "/ParticipantLogin",
-    element: <P_Login/>
+    path: "/ParticipantLogin", element: <P_Login/>
   }
 ]);
 

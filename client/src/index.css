@@ -40,12 +40,14 @@ h1 {
   text-align: center;           
   letter-spacing: 2px;          
   color: #fff !important;          
-  font-size: 50px !important;            
-  margin-top: 20px !important;       
+  font-size: 150px !important;            
+  margin-top: 20px !important; 
+  top: 20 !important;      
 }
 
 p {
   color: var(--white);
+  font-size: 20px;
 }
 
 .body {
@@ -56,6 +58,13 @@ p {
   min-height: 100vh;
   text-align: center;
 }
+
+.header{
+  position:fixed;
+  top:0;
+  align-items: center;
+}
+
 
 .image-container {
   margin-top: 20px;
@@ -130,6 +139,51 @@ p {
   background-color: #751b1c; /* Darker red on hover */
   transform: translateY(-3px);
 }
+
+
+.red-rectangle-button {
+  display: block;
+  width: 100%;
+  max-width: 500px; 
+  margin: 20px auto; 
+  padding: 60px 25px;
+  background-color: #892e2f; 
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.4rem; 
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.red-rectangle-button:hover {
+  background-color: #751b1c; /* Darker shade on hover */
+  transform: translateY(-3px); /* Slight lift on hover */
+}
+
+
+
+@media (min-width: 768px) {
+  .red-rectangle-button {
+    margin-bottom: 40px; /* Add more space below the button on larger screens */
+  }
+  
+  .image-container {
+    margin-top: 40px; /* Increase space above the image container on larger screens */
+  }
+}
+
+
+
+
+
+
+
+
+
 
 /* MIGHT BE ABLE TO DELETE LATER*/
 .shared-screen {
