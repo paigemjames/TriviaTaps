@@ -80,3 +80,65 @@ p {
 }
 
 
+/*------------------------------------------------------------*/
+.role-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #253038, #395262);
+  text-align: center;
+  padding: 20px;
+}
+.h2 {
+  color: #c7aa41; /* Gold color for the "Profile" text */
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+/* Icon container */
+.icon-container {
+  margin-bottom: 30px;
+}
+
+.profile-icon {
+  max-width: 100px;
+  height: auto;
+}
+
+/* Button styling */
+.role-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.role-button {
+  background-color: #892e2f; /* Red background for buttons */
+  color: #ffffff;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.role-button:hover {
+  background-color: #751b1c; /* Darker red on hover */
+  transform: translateY(-3px);
+}
+
+/* MIGHT BE ABLE TO DELETE LATER*/
+.shared-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #253038, #395262);
+  text-align: center;
+}
+
+

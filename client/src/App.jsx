@@ -13,9 +13,8 @@ const App = () => {
     <div className="body">
       <h1 style={{ color: '#ffffff' }}>Trivia Taps</h1>
       
-      {/* Image wrapped in a React Router Link */}
       <div className="image-container">
-        <Link to="/record">
+        <Link to="/RoleSelection">
           <img src={Taps} alt="Trivia" className="center-image" />
         </Link>
       </div>
