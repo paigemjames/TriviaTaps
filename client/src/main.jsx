@@ -22,6 +22,8 @@ import P_QuizStart from "./components/P_QuizStart";
 import P_QuizSubmit from "./components/P_QuizSubmit";
 import P_SignUp from "./components/P_SignUp";
 import RoleSelection from "./components/RoleSelection";
+import A_Login from "./components/A_Login";
+import A_SignUp from "./components/A_SignUp";
 
 import "./index.css";
 
@@ -85,6 +87,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/ParticipantLogin", element: <P_Login/>
+  }, {
+    path: "/AdminLogin", element: <A_Login/>
+  },
+  {
+    path: "/AdminSignUp", element: <A_SignUp/>
   }
 ]);
 

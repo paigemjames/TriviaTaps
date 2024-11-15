@@ -16,8 +16,7 @@ const RoleSelection = () => {
       <div className="role-buttons">
         <Link to="/ParticipantLogin" className="role-button">Quiz Participant</Link>
         <Link to="/HostLogin" className="role-button">Trivia Host</Link>
-         
-        <Link to="/admin" className="role-button">Administrator</Link>{/*to be included later */}
+        <Link to="/AdminLogin" className="role-button">Administrator</Link>{/*to be included later */}
       </div>
     </div>
   );

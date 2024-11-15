@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../index.css'; // Import the CSS file for styling
 
-const  P_Login = () => {
+const  A_Login = () => {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -14,15 +14,15 @@ const  P_Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5050/participants/login', {
+      const response = await axios.post('http://localhost:5050/admins/login', {
         userEmail,
         password,
       });
 
       setMessage(response.data.message);  // Show the success message
-      setTimeout(() => {
-          navigate('/ParticipantQuizSelection'); // Redirect to quiz selection page
-        }, 1000); // Adjust delay as needed (e.g., 1 seconds to show the message)
+      // setTimeout(() => {
+      //     navigate('/ParticipantQuizSelection'); // Redirect to quiz selection page
+      //   }, 1000); // Adjust delay as needed (e.g., 1 seconds to show the message)
     } catch (error) {
       // Handle errors
       if (error.response) {
@@ -35,7 +35,7 @@ const  P_Login = () => {
 
   return (
     <div className="signup-container">
-      <h2 className="signup-title">Participant Login</h2>
+      <h2 className="signup-title">Admin Login</h2>
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
           <label htmlFor="email" className="form-label">Email:</label>
@@ -70,11 +70,11 @@ const  P_Login = () => {
       
       <div className="signup-link-container">
         <p className="signup-link-text">Need an account?{' '}
-          <Link to ="/ParticipantSignUp" className="signup-link">Sign up here</Link>
+          <Link to ="/AdminSignUp" className="signup-link">Sign up here</Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default P_Login;
+export default A_Login;

@@ -5,29 +5,29 @@ import bcrypt from "bcrypt";
 
 const router = express.Router();
 
-// Get all users (for admin or testing purposes only)
+// Get all admins (for admin or testing purposes only)
 router.get("/", async (req, res) => {
   try {
-    const collection = db.collection("users");
+    const collection = db.collection("admins");
     const results = await collection.find({}, { projection: { hashed_password: 0 } }).toArray();
-    res.status(200).send({ message: "Users fetched successfully", data: results });
+    res.status(200).send({ message: "Admins fetched successfully", data: results });
   } catch (err) {
     console.error(err);
-    res.status(500).send({ message: "Error fetching users" });
+    res.status(500).send({ message: "Error fetching admins" });
   }
 });
 
-// User Sign-Up (Register a new user)
+// Admin Sign-Up (Register a new admin)
 router.post("/signup", async (req, res) => {
   try {
     const { userEmail, password } = req.body;
     console.log('Received:', userEmail, password); // Log incoming data
-    const collection = db.collection("users");
+    const collection = db.collection("admins");
 
-    // Check if the user already exists
+    // Check if the Admins already exists
     const existingUser = await collection.findOne({ userEmail });
     if (existingUser) {
-      return res.status(400).send({ message: "User already exists" });
+      return res.status(400).send({ message: "Admin already exists" });
     }
 
     // Validate password length
@@ -39,32 +39,32 @@ router.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log('Hashed Password:', hashedPassword); // Log hashed password
 
-    // Create new user document
+    // Create new Admins document
     const newUser = { userEmail, hashed_password: hashedPassword };
     const result = await collection.insertOne(newUser);
 
     console.log('Inserted User ID:', result.insertedId); // Log the inserted ID
 
-    res.status(201).send({ message: "User registered successfully", id: result.insertedId,
+    res.status(201).send({ message: "Admin registered successfully", id: result.insertedId,
       success: true
      });
   } catch (err) {
     console.error(err);
-    res.status(500).send({ message: "Error registering user" });
+    res.status(500).send({ message: "Error registering admin" });
   }
 });
 
 
-// User Login
+// Admins Login
 router.post("/login", async (req, res) => {
   try {
     const { userEmail, password } = req.body;
-    const collection = db.collection("users");
+    const collection = db.collection("admins");
 
     // Find the user by email
     const user = await collection.findOne({ userEmail });
     if (!user) {
-      return res.status(404).send({ message: "User not found" });
+      return res.status(404).send({ message: "Admin not found" });
     }
 
     // Compare the provided password with the stored hashed password

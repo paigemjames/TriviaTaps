@@ -14,7 +14,7 @@ const P_SignUp = () => {
    const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5050/users/signup', {
+      const response = await axios.post('http://localhost:5050/participants/signup', {
         userEmail,
         password,
       });
@@ -40,7 +40,7 @@ const P_SignUp = () => {
 
   return (
     <div className="signup-container">
-      <h2 className="signup-title">Sign Up</h2>
+      <h2 className="signup-title">Participant Sign Up</h2>
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
           <label htmlFor="email" className="form-label">Email:</label>
