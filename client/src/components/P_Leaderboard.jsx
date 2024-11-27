@@ -8,8 +8,13 @@ const P_Leaderboard = () => {
   }, []);
 
   return (
-    <div className="shared-screen"></div>
-  );
+    <div className="body">
+        <div className="header"><h1>Leaderboard</h1></div>
+
+        
+    </div>
+);
 };
+
 
 export default P_Leaderboard;

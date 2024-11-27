@@ -18,7 +18,7 @@ const P_QuizStart = () => {
                 <h3>Quiz Category will load here</h3>
             </div>
 
-            {/* Image link to start quiz */}
+
             <div className="image-container">
                 <Link to="/ParticipantQuizQuestions">
                     <img src={Taps} alt="Trivia" className="center-image" />
