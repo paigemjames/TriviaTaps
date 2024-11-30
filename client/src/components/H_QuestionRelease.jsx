@@ -8,7 +8,7 @@ const H_QuestionRelease = () => {
 
   return (
     <div className="shared-screen">
-      {/* For now, nothing else on the screen */}
+      <div className="header"><h1>Trivia Taps</h1></div>
     </div>
   );
 };
