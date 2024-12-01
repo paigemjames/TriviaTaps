@@ -12,6 +12,7 @@ import H_QuizSelection from "./components/H_QuizSelection";
 import H_QuizStart from "./components/H_QuizStart";
 import H_SignUp from "./components/H_SignUp";
 import H_Winners from "./components/H_Winners";
+import H_CreateQuiz from "./components/H_CreateQuiz";
 import P_Leaderboard from "./components/P_Leaderboard";
 import P_Login from "./components/P_Login";
 import P_LogOut from "./components/P_LogOut";
@@ -29,69 +30,100 @@ import "./index.css";
 
 const router = createBrowserRouter([
   {
-    path: "/", element: <App />
+    path: "/", 
+    element: <App />
   },
   {
-    path: "/RoleSelection", element: <RoleSelection />
+    path: "/RoleSelection", 
+    element: <RoleSelection />
   },
   {
-    path: "/HostLogin", element: <H_Login/>
+    path: "/HostLogin", 
+    element: <H_Login/>
   },
   {
-    path: "/HostLogOut", element: <H_LogOut/>
+    path: "/HostLogOut", 
+    element: <H_LogOut/>
   },
   {
-    path: "/HostQuestionRelease", element: <H_QuestionRelease/>
+    path: "/HostQuestionRelease", 
+    element: <H_QuestionRelease/>
   },
   {
-    path: "/HostQuizCatagories", element: <H_QuizCatagories/>
+    path: "/HostQuizCatagories", 
+    element: <H_QuizCatagories/>
   },
   {
-    path: "/HostQuizEnd", element: <H_QuizEnd/>
+    path: "/HostQuizEnd", 
+    element: <H_QuizEnd/>
   },
   {
-    path: "/HostQuizSelection", element: <H_QuizSelection/>
+    path: "/HostQuizSelection", 
+    element: <H_QuizSelection/>
   },
   {
-    path: "/HostQuizStart", element: <H_QuizStart/>
+    path: "/HostQuizStart", 
+    element: <H_QuizStart/>
   },
   {
-    path: "/HostSignUp", element: <H_SignUp/>
+    path: "/HostQuizStart/:id",
+    element: <H_QuizStart/>
   },
   {
-    path: "/Winners", element: <H_Winners/>
+    path: "/HostSignUp", 
+    element: <H_SignUp/>
   },
   {
-    path: "/ParticipantLeaderboard", element: <P_Leaderboard/>
+    path: "/HostCreateQuiz",
+    element: <H_CreateQuiz/>
   },
   {
-    path: "/ParticipantLogOut", element: <P_LogOut/>
+    path: "/Winners", 
+    element: <H_Winners/>
   },
   {
-    path: "/ParticipantQuizCatagories", element: <P_QuizCatagories/>
+    path: "/ParticipantLeaderboard", 
+    element: <P_Leaderboard/>
   },
   {
-    path: "/ParticipantQuizQuestions", element: <P_QuizQuestions/>
+    path: "/ParticipantLogOut", 
+    element: <P_LogOut/>
   },
   {
-    path: "/ParticipantQuizSelection", element: <P_QuizSelection/>
+    path: "/ParticipantQuizCatagories", 
+    element: <P_QuizCatagories/>
   },
   {
-    path: "/ParticipantQuizStart", element: <P_QuizStart/>
+    path: "/ParticipantQuizQuestions", 
+    element: <P_QuizQuestions/>
   },
   {
-    path: "/ParticipantQuizSubmit", element: <P_QuizSubmit/>
+    path: "/ParticipantQuizSelection", 
+    element: <P_QuizSelection/>
   },
   {
-    path: "/ParticipantSignUp", element: <P_SignUp/>
+    path: "/ParticipantQuizStart", 
+    element: <P_QuizStart/>
   },
   {
-    path: "/ParticipantLogin", element: <P_Login/>
-  }, {
-    path: "/AdminLogin", element: <A_Login/>
+    path: "/ParticipantQuizSubmit", 
+    element: <P_QuizSubmit/>
   },
   {
-    path: "/AdminSignUp", element: <A_SignUp/>
+    path: "/ParticipantSignUp", 
+    element: <P_SignUp/>
+  },
+  {
+    path: "/ParticipantLogin", 
+    element: <P_Login/>
+  }, 
+  {
+    path: "/AdminLogin", 
+    element: <A_Login/>
+  },
+  {
+    path: "/AdminSignUp", 
+    element: <A_SignUp/>
   }
 ]);
 
