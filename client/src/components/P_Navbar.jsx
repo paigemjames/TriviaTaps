@@ -18,9 +18,9 @@ const P_Navbar = () => {
       </Link>
 
 
-      <div className="nav-item">
+      <Link to="/ParticipantProfile" className="nav-item">
         <FontAwesomeIcon icon={faUser} className="icon" />
-      </div>
+      </Link>
 
       <Link to="/ParticipantLogOut" className="nav-item">
         <FontAwesomeIcon icon={faCog} className="icon" />

@@ -18,6 +18,7 @@ import H_CreateQuiz from "./components/H_CreateQuiz";
 import P_Leaderboard from "./components/P_Leaderboard";
 import P_Login from "./components/P_Login";
 import P_LogOut from "./components/P_LogOut";
+import P_Profile from "./components/P_Profile";
 import P_QuizCatagories from "./components/P_QuizCatagories";
 import P_QuizQuestions from "./components/P_QuizQuestion";
 import P_QuizSelection from "./components/P_QuizSelection";
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
   {
     path: "/ParticipantLogOut", 
     element: <P_LogOut/>
+  },
+  {
+    path: "/ParticipantProfile", 
+    element: <P_Profile/>
   },
   {
     path: "/ParticipantQuizCatagories", 
