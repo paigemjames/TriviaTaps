@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App";
 import P_Navbar from "./components/P_Navbar";
+import H_GameStats from "./components/H_GameStats";
+import H_Leaderboard from "./components/H_Leaderboard";
 import H_Login from "./components/H_LogIn";
 import H_LogOut from "./components/H_LogOut";
 import H_QuestionRelease from "./components/H_QuestionRelease";
@@ -28,6 +30,7 @@ import A_SignUp from "./components/A_SignUp";
 
 import "./index.css";
 
+
 const router = createBrowserRouter([
   {
     path: "/", 
@@ -36,6 +39,14 @@ const router = createBrowserRouter([
   {
     path: "/RoleSelection", 
     element: <RoleSelection />
+  },
+  {
+    path: "/HostGameStats", 
+    element: <H_GameStats/>
+  },
+  {
+    path: "/HostLeaderboard", 
+    element: <H_Leaderboard/>
   },
   {
     path: "/HostLogin", 

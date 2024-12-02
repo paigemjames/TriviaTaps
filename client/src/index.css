@@ -284,7 +284,6 @@ p {
   text-align: center; 
 }
 
-<<<<<<< HEAD
 
 /*-----------------*/
 .quiz-page {
@@ -304,7 +303,6 @@ p {
 .question {
   font-size: 18px;
   margin-bottom: 20px;
-=======
 .quiz-selection-container {
   padding: 20px;
   max-width: 1200px;
@@ -692,13 +690,11 @@ p {
   border: 2px solid #455d7a;
   background-color: #455d7a;
   color: white;
-  margin-bottom: 1rem;
->>>>>>> 1fad1cb4713105c5c046e16e85aff00b94b9d656
+  margin-bottom: 1 rem;
 }
 
 .options-container {
   display: flex;
-<<<<<<< HEAD
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
@@ -746,7 +742,6 @@ p {
   background-color: #222;
   cursor: not-allowed;
 }
-=======
   flex-direction: column;
   gap: 10px;
 }
@@ -820,4 +815,3 @@ input:focus {
   outline: none;
   border-color: #3498db;
 }
->>>>>>> 1fad1cb4713105c5c046e16e85aff00b94b9d656
