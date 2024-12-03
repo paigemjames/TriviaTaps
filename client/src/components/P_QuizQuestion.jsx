@@ -1,135 +1,111 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // Import useParams
-import "../index.css";
-import P_Navbar from "./P_Navbar";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import P_Navbar from './P_Navbar';
 
-const P_QuizQuestions = () => {
-  const [quizData, setQuizData] = useState(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [isLocked, setIsLocked] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+function P_QuizQuestion() {
+  const { quizId } = useParams();
   const navigate = useNavigate();
-  const { quizId } = useParams(); // Retrieve quizId from URL params
+  const [quiz, setQuiz] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        setLoading(true);
-        const response = await fetch(`/api/quizzes/${quizId}`);
-        console.log("API Response:", response); // Debug API response
-        if (!response.ok) {
-          throw new Error("Failed to fetch quiz");
-        }
-        const data = await response.json();
-        console.log("Quiz Data:", data); // Debug parsed data
-        setQuizData(data);
-      } catch (err) {
-        console.error("Error fetching quiz:", err.message); // Log error
-        setError(err.message);
-      } finally {
+        const response = await axios.get(`http://localhost:5050/quizzes/${quizId}`);
+        setQuiz(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching quiz:', error);
         setLoading(false);
       }
     };
-  
-    if (quizId) {
-      fetchQuiz();
-    }
+
+    fetchQuiz();
   }, [quizId]);
-  
 
-  const handleOptionClick = (optionId) => {
-    if (!isLocked) {
-      setSelectedOption(optionId);
+  const handleNextQuestion = () => {
+    if (currentQuestion < quiz.questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
     }
   };
 
-  const handleLockClick = () => {
-    if (selectedOption !== null) {
-      setIsLocked(true);
-      console.log(`Locked answer: ${selectedOption}`);
-      setTimeout(() => {
-        if (currentQuestionIndex === quizData.questions.length - 1) {
-          navigate("/ParticipantQuizSubmit");
-        } else {
-          setCurrentQuestionIndex((prev) => prev + 1);
-          setSelectedOption(null);
-          setIsLocked(false);
-        }
-      }, 1000);
-    }
+  const handleSubmitQuiz = () => {
+    console.log('Quiz submitted!');
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!quizData) return null;
-
-  const currentQuestion = quizData.questions[currentQuestionIndex];
-
-  return (
-    <div className="quiz-page">
-      <h2 className="quiz-title">{quizData.title}</h2>
-      <div className="question">{currentQuestion.question}</div>
-      <div className="options-container">
-        {currentQuestion.options.map((option) => (
-          <div
-            key={option.id}
-            className={`option ${selectedOption === option.id ? "selected" : ""} ${
-              isLocked ? "locked" : ""
-            }`}
-            onClick={() => handleOptionClick(option.id)}
-          >
-            {option.text}
-          </div>
-        ))}
-      </div>
-      <button className="lock-button" onClick={handleLockClick} disabled={isLocked}>
-        🔒 Lock
-      </button>
+  if (loading) return (
+    <div className="quiz-container">
+      <h1 className="quiz-title">Loading...</h1>
       <P_Navbar />
     </div>
   );
-};
+  
+  if (!quiz) return (
+    <div className="quiz-container">
+      <h1 className="quiz-title">Quiz not found</h1>
+      <P_Navbar />
+    </div>
+  );
 
-export default P_QuizQuestions;
+  const isLastQuestion = currentQuestion === quiz.questions.length - 1;
 
+  return (
+    <div className="quiz-container">
+      <div className="quiz-header">
+        <h1 className="quiz-title">{quiz.title}</h1>
+      </div>
 
+      <div className="quiz-content">
+        <div className="question-info">
+          <span>Question {currentQuestion + 1} of {quiz.questions.length}</span>
+          <span className="category">Category: {quiz.category}</span>
+        </div>
 
+        {quiz.questions && quiz.questions[currentQuestion] && (
+          <>
+            <div className="question-text">
+              {quiz.questions[currentQuestion].questionText}
+            </div>
+            
+            <div className="options-container">
+              {quiz.questions[currentQuestion].options.map((option, index) => (
+                <button
+                  key={index}
+                  className="option-button"
+                  onClick={() => {
+                  }}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
 
-/*for backend: 
-{
-  "question": "Who currently holds the record for most Grammy awards ever?",
-  "options": [
-  /{ "id": 1, "text": "Stevie Nicks" },
-    { "id": 2, "text": "Taylor Swift" },
-    { "id": 3, "text": "Beyonce" },
-    { "id": 4, "text": "Adele" }
-  ]
-}*/
+            <div className="navigation-buttons">
+              {isLastQuestion ? (
+                <button
+                  className="submit-button"
+                  onClick={handleSubmitQuiz}
+                >
+                  Submit Quiz
+                </button>
+              ) : (
+                <button
+                  className="next-button"
+                  onClick={handleNextQuestion}
+                >
+                  Next Question
+                </button>
+              )}
+            </div>
+          </>
+        )}
+      </div>
 
-/*more backend
-const express = require("express");
-const app = express();
+      <P_Navbar />
+    </div>
+  );
+}
 
-// Mock database question
-const question = {
-  question: "Who currently holds the record for most Grammy awards ever?",
-  options: [
-    { id: 1, text: "Stevie Nicks" },
-    { id: 2, text: "Taylor Swift" },
-    { id: 3, text: "Beyonce" },
-    { id: 4, text: "Adele" },
-  ],
-};
-
-// API endpoint to return the question
-app.get("/api/question", (req, res) => {
-  res.json(question);
-});
-
-// Start the server
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
-});*/
+export default P_QuizQuestion;
