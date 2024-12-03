@@ -9,6 +9,7 @@ function P_QuizQuestion() {
   const [quiz, setQuiz] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -25,6 +26,13 @@ function P_QuizQuestion() {
     fetchQuiz();
   }, [quizId]);
 
+  const handleAnswerSelect = (questionIndex, selectedOption) => {
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [questionIndex]: selectedOption
+    }));
+  };
+
   const handleNextQuestion = () => {
     if (currentQuestion < quiz.questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -32,7 +40,7 @@ function P_QuizQuestion() {
   };
 
   const handleSubmitQuiz = () => {
-    console.log('Quiz submitted!');
+    console.log('Submitted answers:', selectedAnswers);
   };
 
   if (loading) return (
@@ -41,7 +49,7 @@ function P_QuizQuestion() {
       <P_Navbar />
     </div>
   );
-  
+
   if (!quiz) return (
     <div className="quiz-container">
       <h1 className="quiz-title">Quiz not found</h1>
@@ -50,6 +58,7 @@ function P_QuizQuestion() {
   );
 
   const isLastQuestion = currentQuestion === quiz.questions.length - 1;
+  const currentAnswerSelected = selectedAnswers[currentQuestion];
 
   return (
     <div className="quiz-container">
@@ -73,9 +82,10 @@ function P_QuizQuestion() {
               {quiz.questions[currentQuestion].options.map((option, index) => (
                 <button
                   key={index}
-                  className="option-button"
-                  onClick={() => {
-                  }}
+                  className={`option-button ${
+                    currentAnswerSelected === option ? 'selected' : ''
+                  }`}
+                  onClick={() => handleAnswerSelect(currentQuestion, option)}
                 >
                   {option}
                 </button>
@@ -87,6 +97,7 @@ function P_QuizQuestion() {
                 <button
                   className="submit-button"
                   onClick={handleSubmitQuiz}
+                  disabled={!currentAnswerSelected}
                 >
                   Submit Quiz
                 </button>
@@ -94,6 +105,7 @@ function P_QuizQuestion() {
                 <button
                   className="next-button"
                   onClick={handleNextQuestion}
+                  disabled={!currentAnswerSelected}
                 >
                   Next Question
                 </button>
