@@ -28,6 +28,8 @@ import P_SignUp from "./components/P_SignUp";
 import RoleSelection from "./components/RoleSelection";
 import A_Login from "./components/A_Login";
 import A_SignUp from "./components/A_SignUp";
+// import A_QuizManagement from " ./components/A_QuizManagement";
+//  import A_UserManage from "./components/A_UserManage";
 
 
 import "./index.css";
@@ -142,6 +144,7 @@ const router = createBrowserRouter([
     path: "/AdminSignUp", 
     element: <A_SignUp/>
   }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

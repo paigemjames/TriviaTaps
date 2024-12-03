@@ -20,9 +20,9 @@ const  A_Login = () => {
       });
 
       setMessage(response.data.message);  // Show the success message
-      // setTimeout(() => {
-      //     navigate('/ParticipantQuizSelection'); // Redirect to quiz selection page
-      //   }, 1000); // Adjust delay as needed (e.g., 1 seconds to show the message)
+    //     setTimeout(() => {
+    //     navigate('/'); // Redirect to quiz selection page
+    //  }, 1000); // Adjust delay as needed (e.g., 1 seconds to show the message) */
     } catch (error) {
       // Handle errors
       if (error.response) {
