@@ -80,4 +80,53 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Create a new category
+router.post("/categories", async (req, res) => {
+  try {
+    const { name } = req.body;
+    const collection = db.collection("categories");
+
+    const existingCategory = await collection.findOne({ name });
+    if (existingCategory) {
+      return res.status(400).send({ message: "Category already exists" });
+    }
+
+    const result = await collection.insertOne({ name });
+    res.status(201).send({ message: "Category created successfully", id: result.insertedId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error creating category");
+  }
+});
+
+// Get all categories
+router.get("/categories", async (req, res) => {
+  try {
+    const collection = db.collection("categories");
+    const results = await collection.find({}).toArray();
+    res.status(200).send(results);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching categories");
+  }
+});
+
+// Delete a category
+router.delete("/categories/:id", async (req, res) => {
+  try {
+    const query = { _id: new ObjectId(req.params.id) };
+    const collection = db.collection("categories");
+
+    const result = await collection.deleteOne(query);
+    if (result.deletedCount > 0) {
+      res.status(200).send("Category deleted successfully");
+    } else {
+      res.status(404).send("Category not found");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error deleting category");
+  }
+});
+
 export default router;
