@@ -4,109 +4,122 @@ import { ObjectId } from "mongodb";
 
 const router = express.Router();
 
-// Get a list of all quizzes
+// GET all quizzes
 router.get("/", async (req, res) => {
   try {
     const collection = db.collection("quizzes");
     const results = await collection.find({}).toArray();
-    res.status(200).send(results); // Returning a 200 OK response
+    res.send(results);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching quizzes");
   }
 });
 
-// Get a single quiz by ID
+router.post("/:id/join", async (req, res) => {
+  try {
+    const quizId = decodeURIComponent(req.params.id);
+    const { userEmail } = req.body;
+
+    // Input validation
+    if (!quizId || !userEmail) {
+      console.log("Missing required fields");
+      return res.status(400).json({
+        success: false,
+        message: "Quiz ID and user email are required"
+      });
+    }
+
+    // Validate ObjectId format
+    if (!ObjectId.isValid(quizId)) {
+      console.log("Invalid quiz ID format");
+      return res.status(400).json({
+        success: false,
+        message: "Invalid quiz ID format"
+      });
+    }
+
+    // Find the quiz
+    const quizCollection = db.collection("quizzes");
+    const quiz = await quizCollection.findOne({ 
+      _id: new ObjectId(quizId) 
+    });
+
+    if (!quiz) {
+      console.log("Quiz not found");
+      return res.status(404).json({
+        success: false,
+        message: "Quiz not found"
+      });
+    }
+
+    // Check if user exists
+    const participantCollection = db.collection("participants");
+    const participant = await participantCollection.findOne({ userEmail });
+    
+    if (!participant) {
+      console.log("Participant not found");
+      return res.status(404).json({
+        success: false,
+        message: "Participant not found"
+      });
+    }
+
+    // Check if user already joined
+    const participantsCollection = db.collection("quiz_participants");
+    const existingParticipation = await participantsCollection.findOne({
+      quizId: new ObjectId(quizId),
+      userEmail: userEmail
+    });
+
+    if (existingParticipation) {
+      console.log("Already joined");
+      return res.status(200).json({
+        success: true,
+        message: "Already joined this quiz",
+        quizId: quizId
+      });
+    }
+
+    // Record participation
+    await participantsCollection.insertOne({
+      quizId: new ObjectId(quizId),
+      userEmail: userEmail,
+      joinedAt: new Date(),
+      status: 'joined',
+      score: 0
+    });
+
+    console.log("Successfully joined quiz");
+    res.status(200).json({
+      success: true,
+      message: "Successfully joined quiz",
+      quizId: quizId
+    });
+
+  } catch (error) {
+    console.error("Server error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to join quiz",
+      error: error.message
+    });
+  }
+});
+
+// GET single quiz
 router.get("/:id", async (req, res) => {
   try {
     const collection = db.collection("quizzes");
-    const query = { _id: new ObjectId(req.params.id) };
-    const result = await collection.findOne(query);
-
+    const result = await collection.findOne({ _id: new ObjectId(req.params.id) });
     if (!result) {
-      res.status(404).send("Quiz not found"); // Returning 404 if quiz not found
-    } else {
-      res.status(200).send(result); // Returning the quiz details with 200 OK
+      res.status(404).send("Quiz not found");
+      return;
     }
+    res.send(result);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error fetching quiz");
-  }
-});
-
-// Create a new quiz
-router.post("/", async (req, res) => {
-  try {
-    const { title, category, questions } = req.body;
-    const newQuiz = { title, category, questions }; // Assuming questions field is in the request body
-
-    const collection = db.collection("quizzes");
-    const result = await collection.insertOne(newQuiz);
-
-    res.status(201).send({ id: result.insertedId }); // Returning 201 with insertedId
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error adding quiz");
-  }
-});
-
-// Update a quiz by ID
-router.patch("/:id", async (req, res) => {
-  try {
-    const query = { _id: new ObjectId(req.params.id) };
-
-    // Build the updates object dynamically based on the fields sent in the request
-    const updates = {};
-    if (req.body.title) updates.title = req.body.title;
-    if (req.body.category) updates.category = req.body.category;
-    if (req.body.questions) updates.questions = req.body.questions;
-
-    if (Object.keys(updates).length === 0) {
-      return res.status(400).send("No fields to update"); // Handle case with no updates
-    }
-
-    const collection = db.collection("quizzes");
-    const result = await collection.updateOne(query, { $set: updates });
-
-    if (result.modifiedCount > 0) {
-      res.status(200).send("Quiz updated successfully");
-    } else {
-      res.status(404).send("Quiz not found or no changes made");
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error updating quiz");
-  }
-});
-
-// Delete a quiz by ID
-router.delete("/:id", async (req, res) => {
-  try {
-    const query = { _id: new ObjectId(req.params.id) };
-
-    const collection = db.collection("quizzes");
-    const result = await collection.deleteOne(query);
-
-    if (result.deletedCount > 0) {
-      res.status(200).send("Quiz deleted successfully");
-    } else {
-      res.status(404).send("Quiz not found");
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error deleting quiz");
-  }
-});
-
-// Get quizzes by category
-router.get("/category/:category", async (req, res) => {
-  try {
-    const collection = db.collection("quizzes");
-    const results = await collection.find({ category: req.params.category }).toArray();
-    res.status(200).send(results);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error fetching quizzes by category");
   }
 });
 
