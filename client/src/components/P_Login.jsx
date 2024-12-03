@@ -1,16 +1,14 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import '../index.css'; // Import the CSS file for styling
+import '../index.css';
 
-const  P_Login = () => {
+const P_Login = () => {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -19,12 +17,16 @@ const  P_Login = () => {
         password,
       });
 
-      setMessage(response.data.message);  // Show the success message
+      // store the email in localStorage after successful login
+      localStorage.setItem('userEmail', userEmail);
+      
+      setMessage(response.data.message);
+      
       setTimeout(() => {
-          navigate('/ParticipantQuizSelection'); // Redirect to quiz selection page
-        }, 1000); // Adjust delay as needed (e.g., 1 seconds to show the message)
+        navigate('/ParticipantQuizSelection');
+      }, 1000);
+      
     } catch (error) {
-      // Handle errors
       if (error.response) {
         setMessage(error.response.data.message || 'Error during login');
       } else {
@@ -65,12 +67,12 @@ const  P_Login = () => {
       </form>
 
       <div className="message-container">
-        {message && <p className="message">{message}</p>} {/* Display success or error message */}
+        {message && <p className="message">{message}</p>}
       </div>
       
       <div className="signup-link-container">
         <p className="signup-link-text">Need an account?{' '}
-          <Link to ="/ParticipantSignUp" className="signup-link">Sign up here</Link>
+          <Link to="/ParticipantSignUp" className="signup-link">Sign up here</Link>
         </p>
       </div>
     </div>
