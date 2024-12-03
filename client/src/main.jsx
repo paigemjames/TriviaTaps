@@ -113,8 +113,8 @@ const router = createBrowserRouter([
     element: <P_QuizCatagories/>
   },
   {
-    path: "/ParticipantQuizQuestions", 
-    element: <P_QuizQuestions/>
+  path: "/quiz/:quizId", 
+  element: <P_QuizQuestions/>
   },
   {
     path: "/ParticipantQuizSelection", 
