@@ -816,5 +816,125 @@ input:focus {
   outline: none;
   border-color: #3498db;
 }
+/* Leaderboard Table Styles */
+.leaderboard-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background-color: #e5d0d0;
+  
+  /* Light grey background */
+}
 
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #d9d9d9;
+  /* Light grey border */
+}
 
+.leaderboard-table th {
+  background-color: #e60000;
+  /* Red header */
+  color: rgb(53, 50, 50);
+  font-size: 16px;
+}
+
+.leaderboard-table td {
+  font-size: 14px;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+  /* Light grey background for even rows */
+}
+
+.leaderboard-table tr:hover {
+  background-color: #e6e6e6;
+  /* Slightly darker grey for hover */
+}
+
+/* Popup Modal Styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Darker transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  background-color: #ffffff;
+  /* White background for the popup */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.popup h {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.popup button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 14px;
+  background-color: #e60000;
+  /* Red button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.popup button:hover {
+  background-color: #cc0000;
+  /* Darker red on hover */
+}
+
+.popup button:focus {
+  outline: none;
+}
+
+.yellow-text {
+  color: #cc0000;
+  /* Red color */
+  text-align: center;
+}
+
+.highlight {
+  background-color: #d4cece;
+  font-weight: 700;
+ 
+  color: var(--light-red);
+  /* Light grey background for highlight */
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px ;
+  background-color: #e60000;
+  /* Red button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #cc0000;
+  /* Darker red on hover */
+}
