@@ -1,34 +1,34 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import "../index.css"; // Import the CSS file for styling
 
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import '../index.css'; // Import the CSS file for styling
-
-const  A_Login = () => {
-  const [userEmail, setUserEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+const A_Login = () => {
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5050/admins/login', {
+      const response = await axios.post("http://localhost:5050/admins/login", {
         userEmail,
         password,
       });
 
-      setMessage(response.data.message);  // Show the success message
-    //     setTimeout(() => {
-    //     navigate('/'); // Redirect to quiz selection page
-    //  }, 1000); // Adjust delay as needed (e.g., 1 seconds to show the message) */
+      setMessage(response.data.message); // Show the success message
+
+      if (response.data.message === "Login successful") {
+        navigate("/AdminHomePage"); // Redirect to Admin Home Page
+      }
     } catch (error) {
       // Handle errors
       if (error.response) {
-        setMessage(error.response.data.message || 'Error during login');
+        setMessage(error.response.data.message || "Error during login");
       } else {
-        setMessage('Network error, please try again.');
+        setMessage("Network error, please try again.");
       }
     }
   };
@@ -67,10 +67,11 @@ const  A_Login = () => {
       <div className="message-container">
         {message && <p className="message">{message}</p>} {/* Display success or error message */}
       </div>
-      
+
       <div className="signup-link-container">
-        <p className="signup-link-text">Need an account?{' '}
-          <Link to ="/AdminSignUp" className="signup-link">Sign up here</Link>
+        <p className="signup-link-text">
+          Need an account?{" "}
+          <Link to="/AdminSignUp" className="signup-link">Sign up here</Link>
         </p>
       </div>
     </div>
