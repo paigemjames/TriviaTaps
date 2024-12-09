@@ -10,15 +10,18 @@ function P_QuizQuestion() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [error, setError] = useState("");
 
+  // Fetch quiz data on component mount
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
         const response = await axios.get(`http://localhost:5050/quizzes/${quizId}`);
         setQuiz(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching quiz:', error);
+      } catch (err) {
+        setError("Failed to load the quiz. Please try again.");
+        console.error('Error fetching quiz:', err);
+      } finally {
         setLoading(false);
       }
     };
@@ -26,36 +29,55 @@ function P_QuizQuestion() {
     fetchQuiz();
   }, [quizId]);
 
+  // Handle selecting an answer for a question
   const handleAnswerSelect = (questionIndex, selectedOption) => {
-    setSelectedAnswers(prev => ({
+    setSelectedAnswers((prev) => ({
       ...prev,
-      [questionIndex]: selectedOption
+      [questionIndex]: selectedOption,
     }));
   };
 
+  // Move to the next question
   const handleNextQuestion = () => {
     if (currentQuestion < quiz.questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+      setCurrentQuestion((prev) => prev + 1);
     }
   };
 
+  // Submit quiz and navigate to the results page
   const handleSubmitQuiz = () => {
-    console.log('Submitted answers:', selectedAnswers);
+    if (!quiz) {
+      setError("Quiz data is missing. Please try reloading the page.");
+      return;
+    }
+    navigate('/ParticipantQuizSubmit', {
+      state: {
+        responses: selectedAnswers,
+        quizData: quiz,
+      },
+    });
   };
 
-  if (loading) return (
-    <div className="quiz-container">
-      <h1 className="quiz-title">Loading...</h1>
-      <P_Navbar />
-    </div>
-  );
+  // Render loading state
+  if (loading) {
+    return (
+      <div className="quiz-container">
+        <h1 className="quiz-title">Loading...</h1>
+        <P_Navbar />
+      </div>
+    );
+  }
 
-  if (!quiz) return (
-    <div className="quiz-container">
-      <h1 className="quiz-title">Quiz not found</h1>
-      <P_Navbar />
-    </div>
-  );
+  // Render error state
+  if (error) {
+    return (
+      <div className="quiz-container">
+        <h1 className="quiz-title">Error</h1>
+        <p>{error}</p>
+        <P_Navbar />
+      </div>
+    );
+  }
 
   const isLastQuestion = currentQuestion === quiz.questions.length - 1;
   const currentAnswerSelected = selectedAnswers[currentQuestion];
@@ -77,7 +99,7 @@ function P_QuizQuestion() {
             <div className="question-text">
               {quiz.questions[currentQuestion].questionText}
             </div>
-            
+
             <div className="options-container">
               {quiz.questions[currentQuestion].options.map((option, index) => (
                 <button
